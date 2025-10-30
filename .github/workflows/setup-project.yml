@@ -1,0 +1,56 @@
+name: Setup Project Files
+
+# Isso permite que você rode este workflow manualmente pela aba "Actions"
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Baixa o código do seu repositório (que está vazio ou incompleto)
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Instala Node.js para podermos usar npm/npx
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Roda todos os comandos de setup de uma vez
+      - name: Run setup commands
+        run: |
+          npm init -y
+          npm install --save-dev @rbxts/compiler @rbxts/types rojo-rbx
+          # A flag --yes pula as perguntas do roblox-ts
+          npx rbxtsc --init --yes
+          npx rojo init
+
+      # 4. O `rojo init` cria um arquivo padrão. Vamos substituí-lo pelo correto.
+      - name: Overwrite default.project.json for roblox-ts structure
+        run: |
+          echo '{
+            "name": "meu-jogo",
+            "tree": {
+              "$className": "DataModel",
+              "ReplicatedStorage": {
+                "$path": "out/shared"
+              },
+              "ServerScriptService": {
+                "$path": "out/server"
+              },
+              "StarterPlayer": {
+                "StarterPlayerScripts": {
+                  "$path": "out/client"
+                }
+              }
+            }
+          }' > default.project.json
+
+      # 5. A MÁGICA: Esta action pega todos os arquivos novos/modificados e faz um commit deles no seu repositório.
+      - name: Commit generated files
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: Setup initial project files via GitHub Actions"
+          branch: main # Mude para 'master' se for o nome da sua branch
