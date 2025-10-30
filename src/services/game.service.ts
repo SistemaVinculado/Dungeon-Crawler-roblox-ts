@@ -2855,7 +2855,47 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
         });
     }
     
-    public claimQuestReward(questId: string): void { /* ... */ }
+  public claimQuestReward(questId: string): void {
+    this._state.update(s => {
+      const player = { ...s.player };
+      const questIndex = player.activeQuests.findIndex(q => q.id === questId);
+
+      if (questIndex === -1) {
+        this.messageService.showMessage('Quest not found.', 'error');
+        return s;
+      }
+
+      const quest = player.activeQuests[questIndex];
+      if (quest.status !== 'completed') {
+        this.messageService.showMessage('Quest is not yet completed.', 'error');
+        return s;
+      }
+
+      // Add rewards
+      if (quest.rewards.gold) {
+        player.gold += quest.rewards.gold;
+      }
+      if (quest.rewards.arcaneDust) {
+        player.arcaneDust += quest.rewards.arcaneDust;
+      }
+      if (quest.rewards.diamonds) {
+        player.diamonds += quest.rewards.diamonds;
+      }
+      if (quest.rewards.reforgingEmbers) {
+        player.reforgingEmbers += quest.rewards.reforgingEmbers;
+      }
+
+      // Update quest status
+      const newActiveQuests = [...player.activeQuests];
+      newActiveQuests[questIndex] = { ...quest, status: 'claimed' };
+      const newPlayer = { ...player, activeQuests: newActiveQuests };
+
+      this.messageService.showMessage(`Rewards for "${quest.title}" claimed!`, 'success');
+      
+      return { ...s, player: newPlayer };
+    });
+    this.saveState();
+  }
 
     public getRequiredLevelForAscension(prestige: number): number {
         return 50 + (prestige * 10);
@@ -2895,7 +2935,61 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
         });
     }
 
-    public learnAscensionNode(nodeId: string): void { /* ... */ }
+  public learnAscensionNode(nodeId: string): void {
+    this._state.update(s => {
+      const node = ASCENSION_GRID_DATA.find(n => n.id === nodeId);
+      if (!node) {
+        this.messageService.showMessage('Ascension node not found.', 'error');
+        return s;
+      }
+      
+      const player = s.player;
+
+      if (player.ascensionPoints < node.cost) {
+        this.messageService.showMessage('Not enough Ascension Points.', 'error');
+        return s;
+      }
+      if (player.learnedAscensionNodeIds.includes(nodeId)) {
+        this.messageService.showMessage('Node already learned.', 'error');
+        return s;
+      }
+      if (node.dependencies) {
+        for (const depId of node.dependencies) {
+          if (!player.learnedAscensionNodeIds.includes(depId)) {
+            this.messageService.showMessage('Dependencies not met.', 'error');
+            return s;
+          }
+        }
+      }
+
+      const newPlayer = JSON.parse(JSON.stringify(player));
+      
+      newPlayer.ascensionPoints -= node.cost;
+      newPlayer.learnedAscensionNodeIds.push(nodeId);
+
+      for (const bonus of node.bonuses) {
+        const bonusTarget = newPlayer.ascensionBonuses[bonus.stat];
+        if (bonusTarget) {
+            if (bonus.type === 'flat' && 'flat' in bonusTarget) {
+                (bonusTarget as { flat: number }).flat += bonus.value;
+            }
+            if (bonus.type === 'percent' && 'percent' in bonusTarget) {
+                (bonusTarget as { percent: number }).percent += bonus.value;
+            }
+        }
+      }
+      
+      const newMaxHp = this.getTotalStat('maxHp', newPlayer);
+      const newMaxEn = this.getTotalStat('maxEn', newPlayer);
+      newPlayer.hp = Math.min(newPlayer.hp, newMaxHp);
+      newPlayer.en = Math.min(newPlayer.en, newMaxEn);
+
+      this.messageService.showMessage(`Learned Ascension: ${node.name}`, 'success');
+
+      return { ...s, player: newPlayer };
+    });
+    this.saveState();
+  }
     
     public gambleForItem(type: 'weapon' | 'helmet' | 'armor' | 'shield'): void {
         this._state.update(s => {

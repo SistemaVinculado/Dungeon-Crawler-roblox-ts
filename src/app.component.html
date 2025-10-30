@@ -10,7 +10,7 @@
       <app-map-selection></app-map-selection>
     } @else {
       <!-- This new layout removes the side panels and overlays controls/stats -->
-      <div class="h-full w-full relative flex items-center justify-center">
+      <div class="h-full w-full relative flex items-center justify-center p-1 sm:p-0">
         
         <!-- The game screen now takes up as much space as possible while remaining square -->
         <div class="relative h-full aspect-square">
@@ -24,7 +24,7 @@
         <!-- Floor Transition Message -->
         @if (state().floorTransitionMessage; as msg) {
           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
-            <h1 class="text-6xl text-theme-primary text-shadow-pixel animate-floor-transition">
+            <h1 class="text-3xl sm:text-4xl md:text-6xl text-theme-primary text-shadow-pixel animate-floor-transition">
               {{ msg }}
             </h1>
           </div>
@@ -33,28 +33,28 @@
         <!-- UI Overlays -->
         @if (state().status !== 'run-summary') {
           <!-- Top Left Panel -->
-          <div class="absolute top-4 left-4 z-20 w-72">
+          <div class="absolute top-1 left-1 sm:top-2 sm:left-2 md:top-4 md:left-4 z-20 w-36 sm:w-48 md:w-60 lg:w-72">
             <app-floor-status></app-floor-status>
           </div>
           
           <!-- Top Right Panel -->
-          <div class="absolute top-4 right-4 z-20 w-72 flex flex-col gap-4">
+          <div class="absolute top-1 right-1 sm:top-2 sm:right-2 md:top-4 md:right-4 z-20 w-36 sm:w-48 md:w-60 lg:w-72 flex flex-col gap-1 sm:gap-2 md:gap-4">
             <app-player-stats></app-player-stats>
             @if (state().status === 'playing' || state().status === 'combat') {
-              <button (click)="toggleInventory()" class="py-2 px-4 btn-pixel btn-pixel-secondary text-base">
+              <button (click)="toggleInventory()" class="py-1 px-2 text-[10px] sm:text-sm md:py-2 md:px-4 md:text-base btn-pixel btn-pixel-secondary">
                 Inventory
               </button>
-              <button (click)="toggleSkillBook()" class="py-2 px-4 btn-pixel btn-pixel-secondary text-base" [class.btn-glow-gold]="state().player.skillPoints > 0">
+              <button (click)="toggleSkillBook()" class="py-1 px-2 text-[10px] sm:text-sm md:py-2 md:px-4 md:text-base btn-pixel btn-pixel-secondary" [class.btn-glow-gold]="state().player.skillPoints > 0">
                 Skill Book
               </button>
-              <button (click)="exitMatch()" class="py-2 px-4 btn-pixel btn-pixel-danger text-base">
+              <button (click)="exitMatch()" class="py-1 px-2 text-[10px] sm:text-sm md:py-2 md:px-4 md:text-base btn-pixel btn-pixel-danger">
                 Exit Match
               </button>
             }
           </div>
 
           @if (state().status === 'playing') {
-            <div class="absolute bottom-4 left-4 z-20 w-52">
+            <div class="absolute bottom-1 left-1 sm:bottom-2 sm:left-2 md:bottom-4 md:left-4 z-20 w-28 sm:w-36 md:w-44 lg:w-52">
               <app-controls></app-controls>
             </div>
           }
