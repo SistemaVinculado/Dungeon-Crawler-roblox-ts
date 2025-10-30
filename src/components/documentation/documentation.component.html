@@ -1,0 +1,229 @@
+<!-- Main Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <!-- Modal Panel -->
+    <div class="w-full max-w-4xl h-[90vh] flex flex-col bg-gradient-to-br from-gray-800 to-gray-900 border-pixel border-pixel-primary p-4 md:p-6 text-gray-300 gap-4">
+      <!-- Header -->
+      <div class="flex-shrink-0 flex justify-between items-center border-b-2 border-slate-600 pb-3">
+        <h2 class="text-2xl sm:text-3xl text-theme-primary">GAME DOCUMENTATION & CODES</h2>
+        <button (click)="close()" class="w-8 h-8 flex items-center justify-center btn-pixel btn-pixel-secondary text-lg">
+          X
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="doc-content flex-grow flex flex-col gap-4 overflow-y-auto pr-2">
+        <div class="space-y-6 text-base leading-relaxed">
+
+            <div>
+                <h3 class="text-xl text-theme-primary">Introduction (Alpha v2.0.0)</h3>
+                <p>Welcome to Dungeon Crawler! This is a challenging, level-based RPG where you will explore dangerous, procedurally-generated dungeons, fight fearsome monsters, and collect powerful loot to grow your character.</p>
+            </div>
+
+            <div>
+                <h3 class="text-xl text-theme-primary">Getting Started</h3>
+                <h4 class="text-lg text-theme-info mt-2">The Hub</h4>
+                <p>The Hub is your central base of operations between dungeon runs. From here, you can access the Shop, manage your Skills and Appearance, or select your next challenge.</p>
+                <h4 class="text-lg text-theme-info mt-2">Player Classes</h4>
+                <p>Before you begin, you can choose a class in the Inventory screen. Each class has unique strengths and access to a different skill tree.</p>
+                <ul class="list-inside list-disc mt-2 space-y-1 pl-2">
+                    <li><strong class="font-bold text-white">Warrior:</strong> A master of martial combat, focusing on high defense and powerful physical attacks. Warriors excel at surviving tough encounters.</li>
+                    <li><strong class="font-bold text-white">Mage:</strong> A wielder of arcane energies, focusing on managing a large Energy pool to cast debilitating spells and potent magical attacks.</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-xl text-theme-primary">Core Mechanics</h3>
+                 <h4 class="text-lg text-theme-info mt-2">Player Stats</h4>
+                <ul class="list-inside list-disc mt-2 space-y-1 pl-2">
+                    <li><strong class="font-bold text-white">HP (Health Points):</strong> Your life force. If it reaches zero, your run ends in defeat.</li>
+                    <li><strong class="font-bold text-white">EN (Energy):</strong> The resource used to cast powerful active skills.</li>
+                    <li><strong class="font-bold text-white">ATK (Attack):</strong> Increases the damage you deal with basic attacks and skills.</li>
+                    <li><strong class="font-bold text-white">DEF (Defense):</strong> Reduces the amount of damage you take from enemy attacks.</li>
+                </ul>
+                <h4 class="text-lg text-theme-info mt-2">Leveling Up & XP Curve</h4>
+                <p>Defeating enemies grants Experience Points (XP). The amount of XP required to level up increases significantly at higher levels, making the journey to level 100 a true test of dedication. Expect the final levels to require several days of play.</p>
+                <p class="mt-2"><strong class="font-bold text-white">Gauntlet Mode:</strong> To ensure fair competition, XP and Gold are <strong class="font-bold text-red-400">not</strong> awarded for runs in the Gauntlet.</p>
+            </div>
+
+             <div>
+                <h3 class="text-xl text-theme-primary">Ascension & Prestige</h3>
+                <p>Once you reach a certain level, you can choose to Ascend. This is the core long-term progression system designed for dedicated players.</p>
+                <ul class="list-inside list-disc mt-2 space-y-1 pl-2">
+                    <li><strong>1st Ascension:</strong> Requires Level 50</li>
+                    <li><strong>2nd Ascension:</strong> Requires Level 60</li>
+                    <li><strong>3rd Ascension:</strong> Requires Level 70</li>
+                    <li><strong class="font-bold text-white">...and so on, with the requirement increasing by 10 levels for each Prestige.</strong></li>
+                </ul>
+                <p class="mt-2">Ascending will reset your level, skills, and gold, but you keep your equipment and currencies. In return, you gain Prestige and Ascension Points, which are used to unlock powerful, permanent account-wide bonuses in the Ascension Grid.</p>
+            </div>
+            
+            <div>
+                <h3 class="text-xl text-theme-primary">Dungeon Exploration</h3>
+                <p>Use the arrow keys or on-screen controls to navigate the dungeon. Each floor is randomly generated.</p>
+                 <h4 class="text-lg text-theme-info mt-2">Fog of War & Floor Status</h4>
+                <p>Each dungeon floor is shrouded in a dense fog. You must explore to reveal the map layout. Your visibility is limited to a small radius around your character. To help you track your progress, the <strong class="font-bold text-white">Floor Status</strong> panel shows how many enemies and chests are left to find on the current level.</p>
+                
+                <h4 class="text-lg text-theme-info mt-4">Procedural Tiered Difficulty System</h4>
+                <p>This section explains the smart system that governs game difficulty, replayability, and rewards.</p>
+
+                <p class="mt-2"><strong class="font-bold text-white">1. Level Gating</strong></p>
+                <p>This mechanic prevents you from accessing content for which you are not yet ready. Access to new worlds is "gated" by a minimum level requirement and by completing the previous world on 'Dark' difficulty. This creates a clear progression structure and ensures you have enough power to face the basic challenges of a new area.</p>
+
+                <p class="mt-2"><strong class="font-bold text-white">2. Tiered Difficulty System</strong></p>
+                <p>This mechanic gives you choice over the level of challenge you want to face within a single world. Each world offers multiple difficulties (Easy, Medium, Hard...). To access a higher tier, you must prove your worth by defeating the previous one. This increases the replayability of content and offers an increasing challenge for advanced players.</p>
+
+                <p class="mt-2"><strong class="font-bold text-white">3. Procedural Stat Scaling</strong></p>
+                <p>This is the "magic" behind the scenes. The game uses a base formula to determine the power of an enemy and the value of a reward based on your selected difficulty.</p>
+                <p class="mt-2"><strong>Enemy Attribute Formula Example:</strong></p>
+                <code>Final Attribute = Base Attribute * DifficultyModifier</code>
+                <p class="mt-2">An enemy with 100 Base Health (HP) would scale like this:</p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Difficulty</th>
+                      <th>Modifier</th>
+                      <th>Final HP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Easy</td><td>1.0x</td><td><strong>100 HP</strong></td></tr>
+                    <tr><td>Medium</td><td>1.5x</td><td><strong>150 HP</strong></td></tr>
+                    <tr><td>Hard</td><td>2.0x</td><td><strong>200 HP</strong></td></tr>
+                    <tr><td>Dark</td><td>2.5x</td><td><strong>250 HP</strong></td></tr>
+                    <tr><td>Dark+</td><td>3.0x</td><td><strong>300 HP</strong></td></tr>
+                  </tbody>
+                </table>
+                <p class="mt-2"><strong>Reward Formula Example (XP):</strong></p>
+                <code>Final XP = Base XP * DifficultyModifier</code>
+                <p class="mt-2">An enemy that gives 50 Base XP would scale like this:</p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Difficulty</th>
+                      <th>Modifier</th>
+                      <th>Final XP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Easy</td><td>1.0x</td><td><strong>50 XP</strong></td></tr>
+                    <tr><td>Medium</td><td>1.5x</td><td><strong>75 XP</strong></td></tr>
+                    <tr><td>Hard</td><td>2.0x</td><td><strong>100 XP</strong></td></tr>
+                    <tr><td>Dark</td><td>2.5x</td><td><strong>125 XP</strong></td></tr>
+                    <tr><td>Dark+</td><td>3.0x</td><td><strong>150 XP</strong></td></tr>
+                  </tbody>
+                </table>
+                <p class="mt-2">This scaling applies to all stats (HP, Attack, Defense) and rewards (XP, Gold).</p>
+
+                <h4 class="text-lg text-theme-info mt-4">Advantages of This System</h4>
+                <ul class="list-inside list-disc mt-2 space-y-1 pl-2">
+                    <li><strong class="font-bold text-white">Development Efficiency:</strong> We create one enemy template, and the system scales it for all difficulties, allowing for more content faster.</li>
+                    <li><strong class="font-bold text-white">Smooth Difficulty Curve:</strong> Difficulty increases predictably and mathematically, avoiding frustrating and unexpected spikes.</li>
+                    <li><strong class="font-bold text-white">High Replayability:</strong> You are encouraged to revisit the same worlds to overcome greater challenges for better rewards.</li>
+                    <li><strong class="font-bold text-white">Player Agency:</strong> You have control over your experience, choosing to farm at a comfortable difficulty or test your limits at a higher one.</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-xl text-theme-primary">Items & Equipment</h3>
+                 <h4 class="text-lg text-theme-info mt-2">Item Rarity</h4>
+                 <p>All items in the game have a rarity, which indicates their power and value. Higher rarity items are more likely to have better stats and powerful Perks.</p>
+                 <table>
+                   <thead>
+                     <tr>
+                       <th>Rarity</th>
+                       <th>Color</th>
+                       <th>Concept</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr><td>Common</td><td style="color:#B0B0B0">Gray / White</td><td>Basic items with no magical properties.</td></tr>
+                     <tr><td>Uncommon</td><td style="color:#1EFF00">Green</td><td>Slightly better than common, with simple attributes.</td></tr>
+                     <tr><td>Rare</td><td style="color:#0070DD">Blue</td><td>Quality items, a significant improvement.</td></tr>
+                     <tr><td>Epic</td><td style="color:#A335EE">Purple</td><td>Powerful gear, often with a unique effect.</td></tr>
+                     <tr><td>Legendary</td><td style="color:#FF8000">Orange</td><td>Immense power, often defining a character build.</td></tr>
+                     <tr><td>Mythic</td><td style="color:#E50000">Red</td><td>Power that transcends legends.</td></tr>
+                     <tr><td>Artifact</td><td style="color:#00D1FF">Cyan</td><td>Relics of a forgotten age; unparalleled power.</td></tr>
+                     <tr><td>Divine</td><td style="color:#FFD700">Gold</td><td>Items forged or blessed by the gods.</td></tr>
+                     <tr><td>Exotic</td><td style="color:#FF8000">Prismatic</td><td>Unique items that break the rules of the game.</td></tr>
+                   </tbody>
+                 </table>
+                <h4 class="text-lg text-theme-info mt-2">Equipment Perks</h4>
+                <p>Equipment has a chance to spawn with powerful, randomly-leveled Perks. These provide percentage-based bonuses to your stats, making them extremely valuable for powerful builds.</p>
+                <h4 class="text-lg text-theme-info mt-2">Junk System</h4>
+                <p>In your inventory, you can mark items as "Junk." This allows you to quickly sell all marked items at the shop with the "Sell All Junk" button.</p>
+            </div>
+
+            <div>
+                <h3 class="text-xl text-theme-primary">Game Data & Codes</h3>
+                
+                <h4 class="text-lg text-theme-info mt-4">Status Effects</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Effect</th>
+                      <th>ID Code</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Stun</td><td><code>stun</code></td><td>Cannot perform any actions.</td></tr>
+                    <tr><td>Chilled</td><td><code>chilled</code></td><td>Deals 25% less damage.</td></tr>
+                    <tr><td>Poison</td><td><code>poison</code></td><td>Takes damage at the start of their turn.</td></tr>
+                    <tr><td>Defense Boost</td><td><code>defense_boost</code></td><td>Defense is increased by a percentage.</td></tr>
+                    <tr><td>Guarding</td><td><code>guarding</code></td><td>Taking 50% reduced damage for this turn.</td></tr>
+                    <tr><td>Retaliating</td><td><code>retaliating</code></td><td>Block chance is tripled. Reflects damage on successful blocks.</td></tr>
+                    <tr><td>Phased</td><td><code>phased</code></td><td>Will dodge the next incoming attack.</td></tr>
+                    <tr><td>Enraged</td><td><code>enraged</code></td><td>Deals 50% more damage.</td></tr>
+                    <tr><td>Channeling</td><td><code>channeling</code></td><td>Preparing a powerful attack for the next turn.</td></tr>
+                    <tr><td>Thorns</td><td><code>thorns</code></td><td>Reflects flat damage back to attackers.</td></tr>
+                    <tr><td>Weaken</td><td><code>weaken</code></td><td>Takes 25% more damage from all sources.</td></tr>
+                  </tbody>
+                </table>
+
+            </div>
+
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="flex-shrink-0 pt-4 border-t-2 border-slate-600 text-center">
+        <button (click)="close()" class="py-2 px-8 btn-pixel btn-pixel-primary text-xl">
+          CLOSE
+        </button>
+      </div>
+    </div>
+</div>
+
+<style>
+  .doc-content h3 {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #4a5568; /* slate-600 */
+  }
+  .doc-content h4 {
+    font-weight: bold;
+  }
+  .doc-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .doc-content th, .doc-content td {
+    border: 1px solid #4a5568; /* slate-600 */
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .doc-content th {
+    background-color: #2d3748; /* slate-700 */
+  }
+  .doc-content code {
+    background-color: #1a202c; /* slate-900 */
+    color: #a0aec0; /* slate-400 */
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: copy;
+    word-break: break-all;
+  }
+</style>

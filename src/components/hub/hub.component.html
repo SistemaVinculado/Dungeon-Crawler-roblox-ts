@@ -1,0 +1,102 @@
+<div class="h-full w-full relative flex flex-col items-center justify-center text-gray-300 overflow-y-auto p-4 bg-gradient-to-b from-gray-800 to-gray-900">
+
+  <!-- Main Title & Info -->
+  <div class="text-center mb-4">
+    <h1 class="text-5xl text-theme-primary tracking-wider">Dungeon Crawler</h1>
+    <p class="text-base text-theme-primary mt-2">Alpha v2.0.0</p>
+    <p class="text-lg text-purple-400 my-2">Highest Floor: {{ highestFloor() }}</p>
+  </div>
+
+  <!-- Primary Actions -->
+  <div class="flex flex-col items-center gap-2 mb-4">
+    <button (click)="continueGame()" class="py-3 px-12 btn-pixel btn-pixel-primary text-xl">
+      Continue
+    </button>
+     <button (click)="startNewGameClicked()" class="p-2 px-4 btn-pixel btn-pixel-danger text-sm">
+      Start New Game
+    </button>
+  </div>
+
+  <!-- Global Event Banner -->
+  @if (activeEvent(); as event) {
+    <div class="w-full max-w-4xl mb-4 p-2 border-2 border-yellow-400 bg-yellow-900/50 rounded-lg text-center animate-pulse">
+        <h3 class="text-lg text-yellow-300">{{ event.name }} is active!</h3>
+        <p class="text-sm text-yellow-400">{{ event.description }}</p>
+        <p class="text-xs mt-1">Time remaining: {{ formatTime(timeLeft()) }}</p>
+    </div>
+  }
+
+  <!-- Tabbed Panel -->
+  <div class="w-full max-w-4xl min-h-[260px] flex flex-col bg-gradient-to-br from-gray-800 to-gray-900 border-pixel border-pixel-primary">
+    <!-- Tabs -->
+    <div class="flex-shrink-0 flex border-b-4 border-slate-700">
+      <button (click)="setTab('play')" class="flex-1 text-center p-3 text-base btn-pixel" [class]="activeTab() === 'play' ? 'btn-pixel-primary' : 'btn-pixel-secondary'">Play</button>
+      <button (click)="setTab('character')" class="flex-1 text-center p-3 text-base btn-pixel" [class]="activeTab() === 'character' ? 'btn-pixel-primary' : 'btn-pixel-secondary'">Character</button>
+      <button (click)="setTab('community')" class="flex-1 text-center p-3 text-base btn-pixel" [class]="activeTab() === 'community' ? 'btn-pixel-primary' : 'btn-pixel-secondary'">Community</button>
+      <button (click)="setTab('trade')" class="flex-1 text-center p-3 text-base btn-pixel" [class]="activeTab() === 'trade' ? 'btn-pixel-primary' : 'btn-pixel-secondary'">Trade</button>
+      <button (click)="setTab('system')" class="flex-1 text-center p-3 text-base btn-pixel" [class]="activeTab() === 'system' ? 'btn-pixel-primary' : 'btn-pixel-secondary'">System</button>
+    </div>
+    <!-- Tab Content -->
+    <div class="flex-grow p-4">
+      @switch (activeTab()) {
+        @case ('play') {
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <button (click)="continueGame()" class="p-3 btn-pixel btn-pixel-secondary text-base">Dungeons</button>
+            <button (click)="startGauntlet()" class="p-3 btn-pixel btn-pixel-secondary text-base">Gauntlet</button>
+            <button (click)="openChallengeRift()" class="p-3 btn-pixel btn-pixel-secondary text-base">Challenge Rift</button>
+            <button (click)="openArena()" class="p-3 btn-pixel btn-pixel-secondary text-base">Arena</button>
+          </div>
+        }
+        @case ('character') {
+          <div class="grid grid-cols-3 gap-4 h-full">
+            <button (click)="openStatsBreakdown()" class="p-3 btn-pixel btn-pixel-secondary text-base">My Stats</button>
+            <button (click)="openSkillBook()" class="p-3 btn-pixel btn-pixel-secondary text-base" [class.btn-glow-gold]="playerSkillPoints() > 0">Skill Book</button>
+            <button (click)="openAscensionGrid()" class="p-3 btn-pixel btn-pixel-secondary text-base" [class.btn-glow-gold]="playerAscensionPoints() > 0">Ascension Grid</button>
+            <button (click)="openForge()" class="p-3 btn-pixel btn-pixel-secondary text-base">Forge</button>
+            <button (click)="openTransmutationPanel()" class="p-3 btn-pixel btn-pixel-secondary text-base">Transmute</button>
+             <button (click)="openAscension()" 
+              class="p-3 btn-pixel btn-pixel-secondary text-base"
+              [class.btn-glow-gold]="isMaxLevel()">
+              Ascension
+            </button>
+          </div>
+        }
+        @case ('community') {
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <button (click)="openGuildPanel()" class="p-3 btn-pixel btn-pixel-secondary text-base">Guild</button>
+            <button (click)="openLeaderboard()" class="p-3 btn-pixel btn-pixel-secondary text-base">
+              <div class="flex items-center justify-center gap-2">
+                <span>Leaderboard</span>
+                <span class="text-xs text-gray-400">({{ leaderboardTimeLeft() }})</span>
+              </div>
+            </button>
+            <button (click)="openQuestBoard()" class="p-3 btn-pixel btn-pixel-secondary text-base">Quest Board</button>
+          </div>
+        }
+        @case ('trade') {
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <button (click)="openShop()" class="p-3 btn-pixel btn-pixel-secondary text-base">Shop</button>
+            <button (click)="openGambling()" class="p-3 btn-pixel btn-pixel-secondary text-base">Gamble</button>
+            <button (click)="openDiamondShop()" class="p-3 btn-pixel btn-pixel-secondary text-base">Buy Diamonds</button>
+          </div>
+        }
+        @case ('system') {
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <button (click)="openCodex()" class="p-3 btn-pixel btn-pixel-secondary text-base">Codex</button>
+            <button (click)="openThemePanel()" class="p-3 btn-pixel btn-pixel-secondary text-base">Theme</button>
+            <button (click)="openChangelog()" class="p-3 btn-pixel btn-pixel-secondary text-base">Changelog</button>
+            <button (click)="openDocumentation()" class="p-3 btn-pixel btn-pixel-secondary text-base">Docs</button>
+          </div>
+        }
+      }
+    </div>
+  </div>
+
+</div>
+
+<style>
+/* Remove the top/right/bottom positioning from the default button styles in the tab */
+.btn-pixel:not(:disabled):active {
+    top: 0;
+}
+</style>

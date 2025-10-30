@@ -1,0 +1,55 @@
+<!-- Main Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <!-- Modal Panel -->
+    <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gradient-to-br from-gray-800 to-gray-900 border-pixel border-pixel-primary p-4 md:p-6 text-gray-300 gap-4">
+      <!-- Header -->
+      <div class="flex-shrink-0 flex justify-between items-center border-b-2 border-slate-600 pb-3">
+        <h2 class="text-2xl sm:text-3xl text-theme-primary">CHANGELOG</h2>
+        <button (click)="close()" class="w-8 h-8 flex items-center justify-center btn-pixel btn-pixel-secondary text-lg">
+          X
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="flex-grow flex flex-col gap-4 overflow-y-auto pr-2">
+        <!-- Disclaimer -->
+        <div class="bg-black/40 border border-slate-600 rounded-md p-3 text-sm">
+            <p><span class="text-theme-primary">Note:</span> This game is in Alpha. Features and balance are subject to change. Thank you for playing!</p>
+        </div>
+
+        <!-- Changelog Entries -->
+        <div class="space-y-6 text-base leading-relaxed">
+
+            <div>
+                <h3 class="text-xl text-theme-primary">v2.0.0 Alpha <span class="text-gray-400 text-lg">- The Ascension Update</span></h3>
+                <ul class="list-inside list-disc mt-2 space-y-2 pl-2">
+                    <li><span class="font-bold text-green-400">MASSIVE FEATURE - 9-Tier Rarity System:</span> Loot has been completely overhauled! Items now drop in 9 tiers of rarity: Common, Uncommon, Rare, Epic, Legendary, Mythic, Artifact, Divine, and Exotic. Higher rarities are visually distinct and signify greater power.</li>
+                    <li><span class="font-bold text-green-400">UI Overhaul:</span> The Inventory, Shop, and Forge have been updated to display rarity colors, making it easier to identify your best gear at a glance.</li>
+                    <li><span class="font-bold text-white">World Progression System:</span> Unlock new worlds with unique themes and enemies by defeating the boss of the previous world. The adventure begins in the Dark Forest and continues into the Crystal Caves!</li>
+                    <li><span class="font-bold text-white">Character & Skill System:</span> Choose between the Warrior and Mage classes, each with a unique skill tree. Level up to gain skill points and unlock powerful active abilities and passive bonuses.</li>
+                    <li><span class="font-bold text-white">Dynamic Dungeons:</span> Explore procedurally generated dungeons shrouded in a Fog of War. Discover hidden traps, healing fountains, and treasure chests while hunting down enemies.</li>
+                    <li><span class="font-bold text-white">Tactical Combat:</span> Engage in turn-based combat with a variety of monsters, each with unique behaviors. Manage your Health and Energy, and exploit enemy weaknesses.</li>
+                    <li><span class="font-bold text-white">Meta-Progression:</span>
+                        <ul class="list-inside list-disc mt-1 space-y-1 pl-4">
+                            <li><strong class="font-bold">Forge:</strong> Use Arcane Dust to upgrade your equipment.</li>
+                            <li><strong class="font-bold">Shop:</strong> Buy and sell items, with a junk system and buyback feature for convenience.</li>
+                            <li><strong class="font-bold">Appearance:</strong> Customize your hero with cosmetic skins.</li>
+                            <li><strong class="font-bold">Codex, Leaderboard & Quests:</strong> Track your discoveries, compete for high scores, and see available quests (coming soon!).</li>
+                        </ul>
+                    </li>
+                     <li><span class="font-bold text-white">Difficulty Tiers:</span> Conquer dungeons on multiple difficulties, from Easy to the unlockable Dark+, for greater challenges and rewards.</li>
+                </ul>
+            </div>
+
+        </div>
+
+      </div>
+      
+      <!-- Footer -->
+      <div class="flex-shrink-0 pt-4 border-t-2 border-slate-600 text-center">
+        <button (click)="close()" class="py-2 px-8 btn-pixel btn-pixel-primary text-xl">
+          CLOSE
+        </button>
+      </div>
+    </div>
+</div>

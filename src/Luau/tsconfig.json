@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "out",
+    "rootDir": "src",
+    "typeRoots": [
+      "./node_modules/@rbxts"
+    ]
+  }
+}
