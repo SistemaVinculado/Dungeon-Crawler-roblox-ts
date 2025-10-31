@@ -1,0 +1,55 @@
+# Nome do seu workflow. Aparecerá na aba "Actions" do GitHub.
+name: Build Roblox Game File
+
+# Gatilho: Quando esta Action deve rodar?
+on:
+  # Roda toda vez que você fizer um 'push' (enviar código)
+  push:
+    # Apenas para a branch 'main'. Mude para 'master' se for o nome da sua branch principal.
+    branches: [ main ]
+
+# Tarefas: O que a Action deve fazer.
+jobs:
+  # Nome da tarefa (pode ser qualquer nome)
+  build:
+    # O tipo de máquina virtual que será usada. 'ubuntu-latest' é rápido e gratuito.
+    runs-on: ubuntu-latest
+
+    # Os passos que a máquina virtual irá executar em ordem.
+    steps:
+      # 1. Baixa o seu código do repositório para a máquina virtual.
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      # 2. Instala o Node.js na máquina, necessário para rodar roblox-ts.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Pode usar 16, 18, 20...
+
+      # 3. Instala as dependências do seu projeto (roblox-ts, rojo, etc.)
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Compila seu código TypeScript para Lua usando o roblox-ts.
+      - name: Compile TypeScript to Lua
+        run: npx rbxtsc --verbose
+
+      # 5. Instala o Rojo na máquina virtual.
+      - name: Setup Rojo
+        uses: rojo-rbx/setup-rojo@v1
+        with:
+          rojo-version: '7.3.0' # IMPORTANTE: Coloque a mesma versão do Rojo que você usa!
+
+      # 6. Usa o Rojo para construir o arquivo .rbxlx.
+      - name: Build Rojo project file
+        run: rojo build default.project.json -o "MyGame.rbxlx" # MUDE "MyGame.rbxlx" para o nome que quiser!
+
+      # 7. Faz o upload do arquivo gerado para que você possa baixá-lo.
+      - name: Upload game file artifact
+        uses: actions/upload-artifact@v3
+        with:
+          # Nome que o arquivo terá na área de downloads.
+          name: RobloxGameFile
+          # O caminho do arquivo que deve ser salvo. Deve ser o mesmo nome do passo 6.
+          path: MyGame.rbxlx
