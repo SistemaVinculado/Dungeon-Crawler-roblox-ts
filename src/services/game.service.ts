@@ -1138,11 +1138,13 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
   }
 
   toggleAppearance(): void {
-    this._state.update(s => ({ ...s, appearanceOpen: !s.appearanceOpen }));
+    // this._state.update(s => ({ ...s, appearanceOpen: !s.appearanceOpen }));
+    this.messageService.showMessage('The Appearance shop is temporarily closed.', 'info');
   }
   
   toggleDiamondShop(): void {
-    this._state.update(s => ({ ...s, diamondShopOpen: !s.diamondShopOpen }));
+    // this._state.update(s => ({ ...s, diamondShopOpen: !s.diamondShopOpen }));
+    this.messageService.showMessage('The Diamond shop is temporarily closed.', 'info');
   }
 
   toggleChangelog(): void {
@@ -1201,14 +1203,16 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
   }
 
   toggleArenaPanel(): void {
-      this._state.update(s => ({ ...s, arenaPanelOpen: !s.arenaPanelOpen }));
-      if (this.state().arenaPanelOpen) { // If we just opened it
-          this._checkArenaTicketReset();
-      }
+    this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+    // this._state.update(s => ({ ...s, arenaPanelOpen: !s.arenaPanelOpen }));
+    // if (this.state().arenaPanelOpen) { // If we just opened it
+    //     this._checkArenaTicketReset();
+    // }
   }
 
   toggleArenaInfo(): void {
-      this._state.update(s => ({ ...s, arenaInfoOpen: !s.arenaInfoOpen }));
+    this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+    //   this._state.update(s => ({ ...s, arenaInfoOpen: !s.arenaInfoOpen }));
   }
 
   toggleChallengeRiftPanel(): void {
@@ -1216,7 +1220,8 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
   }
   
   toggleGuildPanel(): void {
-    this._state.update(s => ({ ...s, guildPanelOpen: !s.guildPanelOpen }));
+    this.messageService.showMessage('Guilds are coming in a future update!', 'info');
+    // this._state.update(s => ({ ...s, guildPanelOpen: !s.guildPanelOpen }));
   }
 
   toggleTransmutationPanel(): void {
@@ -1281,6 +1286,8 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
   }
 
   public createGuild(name: string, tag: string): void {
+    this.messageService.showMessage('Guilds are coming in a future update!', 'info');
+    /*
     this._state.update(s => {
         if (s.player.guild) {
             this.messageService.showMessage("You are already in a guild.", 'error');
@@ -1303,9 +1310,12 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
         this.saveState();
         return { ...s, player: newPlayer };
     });
+    */
   }
 
   public recruitGuildMember(): void {
+    this.messageService.showMessage('Guilds are coming in a future update!', 'info');
+    /*
     this._state.update(s => {
         const cost = 5000;
         if (s.player.gold < cost) {
@@ -1333,44 +1343,47 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
         this.saveState();
         return { ...s, player: newPlayer };
     });
+    */
   }
 
   purchaseDiamonds(amount: number): void {
-    this._state.update(s => ({
-      ...s,
-      player: {
-        ...s.player,
-        diamonds: s.player.diamonds + amount,
-      }
-    }));
-    this.messageService.showMessage(`${amount} Diamonds purchased.`, 'success');
+    // this._state.update(s => ({
+    //   ...s,
+    //   player: {
+    //     ...s.player,
+    //     diamonds: s.player.diamonds + amount,
+    //   }
+    // }));
+    // this.messageService.showMessage(`${amount} Diamonds purchased.`, 'success');
+    this.messageService.showMessage('The Diamond shop is temporarily closed.', 'info');
   }
 
   buyAppearance(itemId: string): void {
-    const itemToBuy = APPEARANCE_SHOP_ITEMS.find(i => i.id === itemId);
-    if (!itemToBuy) return;
+    // const itemToBuy = APPEARANCE_SHOP_ITEMS.find(i => i.id === itemId);
+    // if (!itemToBuy) return;
 
-    const player = this.state().player;
+    // const player = this.state().player;
 
-    if (player.diamonds < itemToBuy.price) {
-        this.messageService.showMessage("Not enough diamonds.", 'error');
-        return;
-    }
-    if (player.ownedAppearanceIds.includes(itemId)) {
-        this.messageService.showMessage("Appearance already owned.", 'error');
-        return;
-    }
+    // if (player.diamonds < itemToBuy.price) {
+    //     this.messageService.showMessage("Not enough diamonds.", 'error');
+    //     return;
+    // }
+    // if (player.ownedAppearanceIds.includes(itemId)) {
+    //     this.messageService.showMessage("Appearance already owned.", 'error');
+    //     return;
+    // }
 
-    this._state.update(s => {
-        const newPlayer = {
-            ...s.player,
-            diamonds: s.player.diamonds - itemToBuy.price,
-            ownedAppearanceIds: [...s.player.ownedAppearanceIds, itemId]
-        };
-        this.saveState();
-        return { ...s, player: newPlayer };
-    });
-    this.messageService.showMessage(`${itemToBuy.name} appearance purchased.`, 'success');
+    // this._state.update(s => {
+    //     const newPlayer = {
+    //         ...s.player,
+    //         diamonds: s.player.diamonds - itemToBuy.price,
+    //         ownedAppearanceIds: [...s.player.ownedAppearanceIds, itemId]
+    //     };
+    //     this.saveState();
+    //     return { ...s, player: newPlayer };
+    // });
+    // this.messageService.showMessage(`${itemToBuy.name} appearance purchased.`, 'success');
+    this.messageService.showMessage('The Appearance shop is temporarily closed.', 'info');
   }
 
   applyAppearances(selections: { player: string; weapon: string; shield: string; }): void {
@@ -3069,6 +3082,8 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
     }
 
     public getArenaOpponents(): void {
+        this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+        /*
         this._state.update(s => {
             const playerRank = s.player.arenaRank;
             const shuffled = [...ARENA_OPPONENTS_POOL].sort(() => 0.5 - Math.random());
@@ -3079,9 +3094,12 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
     
             return { ...s, arenaOpponents: opponents };
         });
+        */
     }
 
     public startArenaBattle(opponent: ArenaOpponent, isRevenge: boolean = false): void {
+        this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+        /*
         this._state.update(s => {
             if (!isRevenge && s.player.arenaTickets <= 0) {
                 this.messageService.showMessage("Not enough Arena Tickets.", 'error');
@@ -3132,9 +3150,12 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
                 arenaCombatLog: battleLog
             };
         });
+        */
     }
 
     public finalizeArenaBattle(): void {
+        this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+        /*
         this._state.update(s => {
             if (!s.activeArenaBattle) return s;
     
@@ -3201,9 +3222,12 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
         });
         this.saveState();
         this.getArenaOpponents();
+        */
     }
 
     public buyArenaShopItem(itemId: string): void {
+      this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+      /*
       this._state.update(s => {
           const itemToBuy = ARENA_SHOP_ITEMS.find(i => i.id === itemId);
           if (!itemToBuy) return s;
@@ -3231,9 +3255,12 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
           this.saveState();
           return { ...s, player: newPlayer };
       });
+      */
     }
 
     public buyArenaTicket(): void {
+      this.messageService.showMessage('The Arena is coming in a future update!', 'info');
+      /*
       this._state.update(s => {
           const TICKET_COST = 50;
           if (s.player.diamonds < TICKET_COST) {
@@ -3251,6 +3278,7 @@ private _generateEnemyLoot(enemy: Enemy, player: Player, playerProgress: PlayerP
           this.saveState();
           return { ...s, player: newPlayer };
       });
+      */
     }
 
     public startChallengeRift(): void {

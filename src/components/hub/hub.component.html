@@ -44,7 +44,7 @@
             <button (click)="continueGame()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Dungeons</button>
             <button (click)="startGauntlet()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Gauntlet</button>
             <button (click)="openChallengeRift()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Challenge Rift</button>
-            <button (click)="openArena()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Arena</button>
+            <button (click)="openArena()" disabled title="The Arena is coming in a future update!" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Arena</button>
           </div>
         }
         @case ('character') {
@@ -63,7 +63,7 @@
         }
         @case ('community') {
           <div class="grid grid-cols-2 gap-2 sm:gap-4 h-full">
-            <button (click)="openGuildPanel()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Guild</button>
+            <button (click)="openGuildPanel()" disabled title="Guilds are coming in a future update!" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Guild</button>
             <button (click)="openLeaderboard()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">
               <div class="flex items-center justify-center gap-2">
                 <span>Leaderboard</span>
@@ -77,7 +77,7 @@
           <div class="grid grid-cols-2 gap-2 sm:gap-4 h-full">
             <button (click)="openShop()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Shop</button>
             <button (click)="openGambling()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Gamble</button>
-            <button (click)="openDiamondShop()" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Buy Diamonds</button>
+            <button (click)="openDiamondShop()" disabled title="The Diamond Shop is temporarily closed" class="p-2 sm:p-3 btn-pixel btn-pixel-secondary text-xs sm:text-sm md:text-base">Buy Diamonds</button>
           </div>
         }
         @case ('system') {
